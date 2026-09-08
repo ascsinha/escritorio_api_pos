@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiais</title>
+</head>
+
+<body>
+
+    <div id="lista-materiais"></div>
+
+    <script>
+        const lista = document.querySelector("#lista-materiais");
+
+        const materiais = [
+            {
+                id_material: 12345,
+                nome: "Folha sulfite A4",
+                descricao: "Pacote de folhas sulfite com 500 unidades.",
+                estoque_minimo: 1,
+                estoque_atual: 5
+            },
+
+            {
+                id_material: 14345,
+                nome: "Grampos",
+                descricao: "Pacote de grampos com 5000 unidades",
+                estoque_minimo: 1,
+                estoque_atual: 12
+            },
+
+            {
+                id_material: 18345,
+                nome: "Grampeador",
+                descricao: "Grampeador de escritório de mesa",
+                estoque_minimo: 1,
+                estoque_atual: 2
+            }
+        ];
+
+        function criarMateriais() {
+
+            for (let i = 0; i < materiais.length; i++) {
+
+                const produto = document.createElement("div");
+
+                const id_material = document.createElement("span");
+                id_material.textContent = materiais[i].id_material;
+
+                const nome = document.createElement("p");
+                nome.textContent = materiais[i].nome;
+
+                const descricao = document.createElement("p");
+                descricao.textContent = materiais[i].descricao;
+
+                const estoque_minimo = document.createElement("p");
+                estoque_minimo.textContent = materiais[i].estoque_minimo;
+
+                const estoque_atual = document.createElement("p");
+                estoque_atual.textContent = materiais[i].estoque_atual;
+
+                produto.appendChild(id_material);
+                produto.appendChild(nome);
+                produto.appendChild(descricao);
+                produto.appendChild(estoque_minimo);
+                produto.appendChild(estoque_atual);
+
+                lista.appendChild(produto);
+            }
+        }
+
+        criarMateriais();
+    </script>
+
+</body>
+</html>
