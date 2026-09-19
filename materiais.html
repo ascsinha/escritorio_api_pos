@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiais - Estoka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: #f1f5f9;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #0a2540;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .sidebar-logo {
+            width: 36px;
+            height: 36px;
+            background: #0e7490;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-logo svg {
+            width: 18px;
+            height: 18px;
+            color: #fff;
+        }
+
+        .sidebar-brand h1 {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .sidebar-brand p {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 12px;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-item a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .nav-item.active a {
+            background: #0e7490;
+            color: #fff;
+        }
+
+        .nav-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: #0e7490;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .user-text h4 {
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .user-text p {
+            color: #94a3b8;
+            font-size: 0.75rem;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .logout-link:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: #f87171;
+        }
+
+        .logout-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 380px;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: #94a3b8;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #0f172a;
+            background: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #0e7490;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.1);
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: #64748b;
+        }
+
+        .notification-btn:hover {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        .notification-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .topbar-user .avatar {
+            width: 36px;
+            height: 36px;
+            background: #0f172a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .topbar-user-text h4 {
+            font-size: 0.85rem;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .topbar-user-text p {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            gap: 16px;
+        }
+
+        .content-title h2 {
+            font-size: 1.5rem;
+            color: #0f172a;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .content-title p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: #0e7490;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: #0c637d;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(14, 116, 144, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0e7490;
+        }
+
+        .card-header-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .card-header h3 {
+            font-size: 1rem;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #0f172a;
+            background: #fff;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #0e7490;
+            box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.1);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 11px 18px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .form-actions .btn-primary {
+            flex: 1;
+            justify-content: center;
+            padding: 11px 18px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+
+        .search-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 200px;
+            padding: 9px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .search-inline svg {
+            width: 14px;
+            height: 14px;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .search-inline input {
+            all: unset;
+            flex: 1;
+            font-size: 0.8rem;
+            color: #0f172a;
+            background: transparent;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            color: #64748b;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #0e7490;
+            border-color: #0e7490;
+            color: #fff;
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: #cbd5e1;
+            color: #334155;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        tbody td {
+            padding: 16px;
+            font-size: 0.9rem;
+            color: #0f172a;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .codigo-cell {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .mat-nome {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .qtd-cell {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .qtd-alta {
+            color: #16a34a;
+        }
+
+        .qtd-media {
+            color: #d97706;
+        }
+
+        .qtd-baixa {
+            color: #dc2626;
+        }
+
+        .qtd-zero {
+            color: #6b7280;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .status-badge:hover {
+            transform: scale(1.03);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-liberado {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-liberado .status-dot {
+            background: #22c55e;
+        }
+
+        .status-bloqueado {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .status-bloqueado .status-dot {
+            background: #ef4444;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .action-btn.edit:hover {
+            color: #0e7490;
+            border-color: #0e7490;
+            background: rgba(14, 116, 144, 0.05);
+        }
+
+        .action-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        @media (max-width: 1100px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .topbar {
+                padding: 14px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+            </div>
+            <div class="sidebar-brand">
+                <h1>Estoka</h1>
+                <p>Gerenciamento</p>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Dashboard
+                </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="materiais.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        Materiais
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        Estoque
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v2m18-2v2M5 8h14M7 8v10a2 2 0 002 2h6a2 2 0 002-2V8M5 8a2 2 0 012-2h10a2 2 0 012 2" />
+                        </svg>
+                        Entradas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7M5 7a2 2 0 012-2h10a2 2 0 012 2" />
+                        </svg>
+                        Saídas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 014-4h4m0 0l-3-3m3 3l-3 3M4 6a2 2 0 012-2h4m-4 16a2 2 0 002 2h4a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v16z" />
+                        </svg>
+                        Movimentações
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="funcionarios.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Funcionários
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Relatórios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Configurações
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">US</div>
+                <div class="user-text">
+                    <h4>Usuário</h4>
+                    <p>Almoxarifado</p>
+                </div>
+            </div>
+            <a href="#" class="logout-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sair
+            </a>
+        </div>
+    </aside>
+
+    <div class="main">
+        <header class="topbar">
+            <div class="search-box">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" placeholder="Pesquisar materiais...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <span class="badge">3</span>
+                </button>
+                <div class="topbar-user">
+                    <div class="avatar">US</div>
+                    <div class="topbar-user-text">
+                        <h4>Usuário</h4>
+                        <p>Almoxarifado</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+            <div class="content-header">
+                <div class="content-title">
+                    <h2>Materiais</h2>
+                    <p>12 materiais cadastrados</p>
+                </div>
+                <button class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Novo Material
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <h3>Cadastrar Material</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="codigo">Código</label>
+                                <input type="text" id="codigo" class="form-control" placeholder="Ex: ESC-001">
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">Nome do material</label>
+                                <input type="text" id="nome" class="form-control" placeholder="Digite o nome do material">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade disponível</label>
+                                <input type="number" id="quantidade" class="form-control" placeholder="0" min="0">
+                            </div>
+                            <div class="form-actions">
+                                <button type="reset" class="btn-secondary">Limpar</button>
+                                <button type="submit" class="btn-primary">Cadastrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h3>Lista de Materiais</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filters">
+                            <div class="search-inline">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input type="text" placeholder="Pesquisar por nome ou ID...">
+                            </div>
+                            <button class="filter-btn active">Todos</button>
+                            <button class="filter-btn">Liberados</button>
+                            <button class="filter-btn">Bloqueados</button>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th>Qtd. Disponível</th>
+                                        <th>Status</th>
+                                        <th style="width: 100px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-001</span></td>
+                                        <td><span class="mat-nome">Papel Sulfite A4</span></td>
+                                        <td><span class="qtd-cell qtd-alta">85</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-002</span></td>
+                                        <td><span class="mat-nome">Caneta Esferográfica</span></td>
+                                        <td><span class="qtd-cell qtd-media">38</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-003</span></td>
+                                        <td><span class="mat-nome">Lápis Preto nº 2</span></td>
+                                        <td><span class="qtd-cell qtd-zero">0</span></td>
+                                        <td><button class="status-badge status-bloqueado"><span class="status-dot"></span>Bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-004</span></td>
+                                        <td><span class="mat-nome">Borracha Branca</span></td>
+                                        <td><span class="qtd-cell qtd-alta">64</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-005</span></td>
+                                        <td><span class="mat-nome">Grampeador</span></td>
+                                        <td><span class="qtd-cell qtd-alta">12</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-006</span></td>
+                                        <td><span class="mat-nome">Grampo 26/6</span></td>
+                                        <td><span class="qtd-cell qtd-baixa">7</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-007</span></td>
+                                        <td><span class="mat-nome">Pasta Suspensa</span></td>
+                                        <td><span class="qtd-cell qtd-alta">34</span></td>
+                                        <td><button class="status-badge status-bloqueado"><span class="status-dot"></span>Bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-008</span></td>
+                                        <td><span class="mat-nome">Fita Adesiva</span></td>
+                                        <td><span class="qtd-cell qtd-media">29</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-009</span></td>
+                                        <td><span class="mat-nome">Post-it 76x76mm</span></td>
+                                        <td><span class="qtd-cell qtd-baixa">11</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-010</span></td>
+                                        <td><span class="mat-nome">Marcador de Texto</span></td>
+                                        <td><span class="qtd-cell qtd-alta">42</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-011</span></td>
+                                        <td><span class="mat-nome">Clips 4/0 Galvanizado</span></td>
+                                        <td><span class="qtd-cell qtd-media">23</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-012</span></td>
+                                        <td><span class="mat-nome">Envelope A4 Branco</span></td>
+                                        <td><span class="qtd-cell qtd-zero">0</span></td>
+                                        <td><button class="status-badge status-bloqueado"><span class="status-dot"></span>Bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
