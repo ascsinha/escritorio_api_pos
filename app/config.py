@@ -1,6 +1,11 @@
 import os
+from dotenv import load_dotenv
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(dotenv_path=os.path.join(basedir, ".env"))
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "fallback")
-    SQLALCHEMY_DATABASE_URI = "sqlite:///app.db"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
