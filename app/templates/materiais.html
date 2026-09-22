@@ -1,78 +1,412 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Materiais</title>
+    <title>Materiais - Estoka</title>
+    <link rel="stylesheet" href="../static/css/materiais.css">
 </head>
-
 <body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+            </div>
+            <div class="sidebar-brand">
+                <h1>Estoka</h1>
+                <p>Gerenciamento</p>
+            </div>
+        </div>
 
-    <div id="lista-materiais"></div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Dashboard
+                </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="materiais.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        Materiais
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        Estoque
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v2m18-2v2M5 8h14M7 8v10a2 2 0 002 2h6a2 2 0 002-2V8M5 8a2 2 0 012-2h10a2 2 0 012 2" />
+                        </svg>
+                        Entradas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18M5 7v10a2 2 0 002 2h10a2 2 0 002-2V7M5 7a2 2 0 012-2h10a2 2 0 012 2" />
+                        </svg>
+                        Saídas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 014-4h4m0 0l-3-3m3 3l-3 3M4 6a2 2 0 012-2h4m-4 16a2 2 0 002 2h4a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v16z" />
+                        </svg>
+                        Movimentações
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="funcionarios.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Funcionários
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Relatórios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Configurações
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    <script>
-        const lista = document.querySelector("#lista-materiais");
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">US</div>
+                <div class="user-text">
+                    <h4>Usuário</h4>
+                    <p>Almoxarifado</p>
+                </div>
+            </div>
+            <a href="#" class="logout-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Sair
+            </a>
+        </div>
+    </aside>
 
-        const materiais = [
-            {
-                id_material: 12345,
-                nome: "Folha sulfite A4",
-                descricao: "Pacote de folhas sulfite com 500 unidades.",
-                estoque_minimo: 1,
-                estoque_atual: 5
-            },
+    <div class="main">
+        <header class="topbar">
+            <div class="search-box">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" placeholder="Pesquisar materiais...">
+            </div>
+            <div class="topbar-right">
+                <button class="notification-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <span class="badge">3</span>
+                </button>
+                <div class="topbar-user">
+                    <div class="avatar">US</div>
+                    <div class="topbar-user-text">
+                        <h4>Usuário</h4>
+                        <p>Almoxarifado</p>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-            {
-                id_material: 14345,
-                nome: "Grampos",
-                descricao: "Pacote de grampos com 5000 unidades",
-                estoque_minimo: 1,
-                estoque_atual: 12
-            },
+        <main class="content">
+            <div class="content-header">
+                <div class="content-title">
+                    <h2>Materiais</h2>
+                    <p>12 materiais cadastrados</p>
+                </div>
+                <button class="btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Novo Material
+                </button>
+            </div>
 
-            {
-                id_material: 18345,
-                nome: "Grampeador",
-                descricao: "Grampeador de escritório de mesa",
-                estoque_minimo: 1,
-                estoque_atual: 2
-            }
-        ];
+            <div class="row">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                        <h3>Cadastrar Material</h3>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="codigo">Código</label>
+                                <input type="text" id="codigo" class="form-control" placeholder="Ex: ESC-001">
+                            </div>
+                            <div class="form-group">
+                                <label for="nome">Nome do material</label>
+                                <input type="text" id="nome" class="form-control" placeholder="Digite o nome do material">
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade disponível</label>
+                                <input type="number" id="quantidade" class="form-control" placeholder="0" min="0">
+                            </div>
+                            <div class="form-actions">
+                                <button type="reset" class="btn-secondary">Limpar</button>
+                                <button type="submit" class="btn-primary">Cadastrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-        function criarMateriais() {
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                        </div>
+                        <h3>Lista de Materiais</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filters">
+                            <div class="search-inline">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input type="text" placeholder="Pesquisar por nome ou ID...">
+                            </div>
+                            <button class="filter-btn active">Todos</button>
+                            <button class="filter-btn">Liberados</button>
+                            <button class="filter-btn">Bloqueados</button>
+                        </div>
 
-            for (let i = 0; i < materiais.length; i++) {
-
-                const produto = document.createElement("div");
-
-                const id_material = document.createElement("span");
-                id_material.textContent = materiais[i].id_material;
-
-                const nome = document.createElement("p");
-                nome.textContent = materiais[i].nome;
-
-                const descricao = document.createElement("p");
-                descricao.textContent = materiais[i].descricao;
-
-                const estoque_minimo = document.createElement("p");
-                estoque_minimo.textContent = materiais[i].estoque_minimo;
-
-                const estoque_atual = document.createElement("p");
-                estoque_atual.textContent = materiais[i].estoque_atual;
-
-                produto.appendChild(id_material);
-                produto.appendChild(nome);
-                produto.appendChild(descricao);
-                produto.appendChild(estoque_minimo);
-                produto.appendChild(estoque_atual);
-
-                lista.appendChild(produto);
-            }
-        }
-
-        criarMateriais();
-    </script>
-
-
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th>Qtd. Disponível</th>
+                                        <th>Status</th>
+                                        <th style="width: 100px;">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-001</span></td>
+                                        <td><span class="mat-nome">Papel Sulfite A4</span></td>
+                                        <td><span class="qtd-cell qtd-alta">85</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-002</span></td>
+                                        <td><span class="mat-nome">Caneta Esferográfica</span></td>
+                                        <td><span class="qtd-cell qtd-media">38</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-003</span></td>
+                                        <td><span class="mat-nome">Lápis Preto nº 2</span></td>
+                                        <td><span class="qtd-cell qtd-zero">0</span></td>
+                                        <td><button class="status-badge status-bloqueado"><span class="status-dot"></span>Bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-004</span></td>
+                                        <td><span class="mat-nome">Borracha Branca</span></td>
+                                        <td><span class="qtd-cell qtd-alta">64</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-005</span></td>
+                                        <td><span class="mat-nome">Grampeador</span></td>
+                                        <td><span class="qtd-cell qtd-alta">12</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-006</span></td>
+                                        <td><span class="mat-nome">Grampo 26/6</span></td>
+                                        <td><span class="qtd-cell qtd-baixa">7</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-007</span></td>
+                                        <td><span class="mat-nome">Pasta Suspensa</span></td>
+                                        <td><span class="qtd-cell qtd-alta">34</span></td>
+                                        <td><button class="status-badge status-bloqueado"><span class="status-dot"></span>Bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-008</span></td>
+                                        <td><span class="mat-nome">Fita Adesiva</span></td>
+                                        <td><span class="qtd-cell qtd-media">29</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-009</span></td>
+                                        <td><span class="mat-nome">Post-it 76x76mm</span></td>
+                                        <td><span class="qtd-cell qtd-baixa">11</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-010</span></td>
+                                        <td><span class="mat-nome">Marcador de Texto</span></td>
+                                        <td><span class="qtd-cell qtd-alta">42</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-011</span></td>
+                                        <td><span class="mat-nome">Clips 4/0 Galvanizado</span></td>
+                                        <td><span class="qtd-cell qtd-media">23</span></td>
+                                        <td><button class="status-badge status-liberado"><span class="status-dot"></span>Não bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="codigo-cell">ESC-012</span></td>
+                                        <td><span class="mat-nome">Envelope A4 Branco</span></td>
+                                        <td><span class="qtd-cell qtd-zero">0</span></td>
+                                        <td><button class="status-badge status-bloqueado"><span class="status-dot"></span>Bloqueado</button></td>
+                                        <td>
+                                            <div class="actions">
+                                                <button class="action-btn edit" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
