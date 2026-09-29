@@ -1,6 +1,7 @@
-import { escapeHtml } from "./utils.js";
-import { Material } from "./material.js";
-import { materiais } from "./dados-materiais.js";
+import { escapeHtml } from "../utils.js";
+import { Material } from "../material.js";
+import { materiais, salvarMateriais } from "../dados/materiais.js";
+import { retiradas } from "../dados/retiradas.js";
 
 const corpoTabela = document.querySelector("#tabela-materiais tbody");
 const contadorTexto = document.querySelector("#contador-materiais");
@@ -94,6 +95,7 @@ function criarMaterial(dados) {
     );
 
     materiais.push(material);
+    salvarMateriais();
 }
 
 function alterarMaterial(id, dados) {
@@ -104,17 +106,26 @@ function alterarMaterial(id, dados) {
     material.nome = dados.nome;
     material.quantidade = dados.quantidade;
     material.bloqueado = dados.bloqueado;
+    salvarMateriais();
 }
 
 function excluirMaterial(id) {
     const indice = materiais.findIndex(m => m.id == id);
     if (indice === -1) return;
 
+    // regra de integridade: não excluir se houver retiradas associadas
+    const emUso = retiradas.some(r => r.material.id == id);
+    if (emUso) {
+        alert("Não é possível excluir este material: existem retiradas associadas.");
+        return;
+    }
+
     const material = materiais[indice];
     const confirmar = confirm(`Deseja realmente excluir o material "${material.nome}"?`);
     if (!confirmar) return;
 
     materiais.splice(indice, 1);
+    salvarMateriais();
 
     if (idEmEdicao == id) limparFormulario();
 
@@ -148,6 +159,7 @@ corpoTabela.addEventListener("click", evento => {
         const item = materiais.find(x => x.id == idBadge);
         if (item) {
             item.bloqueado = !item.bloqueado;
+            salvarMateriais();
             if (idEmEdicao == idBadge && campoBloqueado) campoBloqueado.checked = item.bloqueado;
             renderizarLista();
         }

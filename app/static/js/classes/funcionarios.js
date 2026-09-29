@@ -1,19 +1,22 @@
-import { escapeHtml } from "./utils.js";
+import { escapeHtml } from "../utils.js";
 
-export class Material {
+export class Funcionario {
     static proximoId = 1;
 
     #id;
-    #codigo;
+    #matricula;
     #nome;
-    #quantidade;
     #bloqueado;
 
-    constructor(codigo, nome, quantidade = 0, bloqueado = false) {
-        this.#id = Material.proximoId++;
-        this.#codigo = codigo;
+    constructor(matricula, nome, bloqueado = false, id = null) {
+        if (id === null) {
+            this.#id = Funcionario.proximoId++;
+        } else {
+            this.#id = id;
+            Funcionario.proximoId = Math.max(Funcionario.proximoId, id + 1);
+        }
+        this.#matricula = matricula;
         this.#nome = nome;
-        this.#quantidade = Number(quantidade);
         this.#bloqueado = Boolean(bloqueado);
     }
 
@@ -21,12 +24,12 @@ export class Material {
         return this.#id;
     }
 
-    get codigo() {
-        return this.#codigo;
+    get matricula() {
+        return this.#matricula;
     }
 
-    set codigo(valor) {
-        this.#codigo = valor;
+    set matricula(valor) {
+        this.#matricula = valor;
     }
 
     get nome() {
@@ -35,14 +38,6 @@ export class Material {
 
     set nome(valor) {
         this.#nome = valor;
-    }
-
-    get quantidade() {
-        return this.#quantidade;
-    }
-
-    set quantidade(valor) {
-        this.#quantidade = Number(valor);
     }
 
     get bloqueado() {
@@ -58,14 +53,7 @@ export class Material {
     }
 
     get statusClasse() {
-        return this.#bloqueado ? "status-bloqueado" : "status-liberado";
-    }
-
-    get quantidadeClasse() {
-        if (this.#quantidade === 0) return "qtd-zero";
-        if (this.#quantidade <= 10) return "qtd-baixa";
-        if (this.#quantidade <= 40) return "qtd-media";
-        return "qtd-alta";
+        return this.#bloqueado ? "status-bloqueado" : "status-ativo";
     }
 
     render() {
@@ -73,9 +61,8 @@ export class Material {
         linha.dataset.id = this.id;
 
         linha.innerHTML = `
-            <td><span class="codigo-cell">${escapeHtml(this.codigo)}</span></td>
-            <td><span class="mat-nome">${escapeHtml(this.nome)}</span></td>
-            <td><span class="qtd-cell ${this.quantidadeClasse}">${this.quantidade}</span></td>
+            <td><span class="matricula-cell">${escapeHtml(this.matricula)}</span></td>
+            <td><span class="func-nome">${escapeHtml(this.nome)}</span></td>
             <td>
                 <button class="status-badge ${this.statusClasse}" type="button">
                     <span class="status-dot"></span>${this.statusTexto}

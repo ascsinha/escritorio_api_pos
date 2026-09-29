@@ -1,6 +1,7 @@
-import { escapeHtml } from "./utils.js";
-import { Funcionario } from "./funcionarios.js";
-import { funcionarios } from "./dados-funcionarios.js";
+import { escapeHtml } from "../utils.js";
+import { Funcionario } from "../classes/funcionarios.js";
+import { funcionarios, salvarFuncionarios } from "../dados/funcionarios.js";
+import { retiradas } from "../dados/retiradas.js";
 
 const corpoTabela = document.querySelector("#tabela-funcionarios tbody");
 const contadorTexto = document.querySelector("#contador-funcionarios");
@@ -91,6 +92,7 @@ function criarFuncionario(dados) {
     );
 
     funcionarios.push(funcionario);
+    salvarFuncionarios();
 }
 
 function alterarFuncionario(id, dados) {
@@ -100,17 +102,26 @@ function alterarFuncionario(id, dados) {
     funcionario.matricula = dados.matricula;
     funcionario.nome = dados.nome;
     funcionario.bloqueado = dados.bloqueado;
+    salvarFuncionarios();
 }
 
 function excluirFuncionario(id) {
     const indice = funcionarios.findIndex(f => f.id == id);
     if (indice === -1) return;
 
+    // regra de integridade: não excluir se houver retiradas associadas
+    const emUso = retiradas.some(r => r.funcionario.id == id);
+    if (emUso) {
+        alert("Não é possível excluir este funcionário: existem retiradas associadas.");
+        return;
+    }
+
     const funcionario = funcionarios[indice];
     const confirmar = confirm(`Deseja realmente excluir o funcionário "${funcionario.nome}"?`);
     if (!confirmar) return;
 
     funcionarios.splice(indice, 1);
+    salvarFuncionarios();
 
     if (idEmEdicao == id) limparFormulario();
 
@@ -143,6 +154,7 @@ corpoTabela.addEventListener("click", evento => {
         const item = funcionarios.find(x => x.id == idBadge);
         if (item) {
             item.bloqueado = !item.bloqueado;
+            salvarFuncionarios();
             if (idEmEdicao == idBadge && campoBloqueado) campoBloqueado.checked = item.bloqueado;
             renderizarLista();
         }
