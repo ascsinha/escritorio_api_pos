@@ -646,6 +646,95 @@ tbody tr:last-child td {
     height: 15px;
 }
 
+/* checkbox do formulário */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.form-check input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #0e7490;
+    cursor: pointer;
+}
+
+.form-check label {
+    font-size: 0.9rem;
+    color: #334155;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* botões de ação da tabela */
+.action-btn.delete:hover {
+    color: #dc2626;
+    border-color: #dc2626;
+    background: rgba(220, 38, 38, 0.05);
+}
+
+.action-btn.view:hover {
+    color: #0e7490;
+    border-color: #0e7490;
+    background: rgba(14, 116, 144, 0.05);
+}
+
+.empty-row td {
+    text-align: center;
+    color: #94a3b8;
+    padding: 32px 16px;
+}
+
+/* modal de detalhes */
+.modal-detalhe {
+    border: none;
+    border-radius: 12px;
+    padding: 24px;
+    width: 420px;
+    max-width: 90vw;
+    margin: auto;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+}
+
+.modal-detalhe::backdrop {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.modal-detalhe h3 {
+    font-size: 1.1rem;
+    color: #0f172a;
+    margin-bottom: 16px;
+}
+
+.detalhe-lista {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px 24px;
+}
+
+.detalhe-lista dt {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.detalhe-lista dd {
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-actions .btn-secondary {
+    flex: none;
+}
+
 @media (max-width: 1100px) {
     .row {
         grid-template-columns: 1fr;

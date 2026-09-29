@@ -1,4 +1,5 @@
-import { Material } from "./Material.js";
+import { escapeHtml } from "./utils.js";
+import { Material } from "./material.js";
 import { materiais } from "./dados-materiais.js";
 
 const corpoTabela = document.querySelector("#tabela-materiais tbody");
@@ -126,10 +127,10 @@ function visualizarMaterial(id) {
 
     detalheConteudo.innerHTML = `
         <dl class="detalhe-lista">
-            <dt>Código</dt><dd>${material.codigo}</dd>
-            <dt>Nome</dt><dd>${material.nome}</dd>
-            <dt>Quantidade disponível</dt><dd>${material.quantidade}</dd>
-            <dt>Status</dt><dd>${material.statusTexto}</dd>
+            <dt>Código</dt><dd>${escapeHtml(material.codigo)}</dd>
+            <dt>Nome</dt><dd>${escapeHtml(material.nome)}</dd>
+            <dt>Quantidade disponível</dt><dd>${escapeHtml(material.quantidade)}</dd>
+            <dt>Status</dt><dd>${escapeHtml(material.statusTexto)}</dd>
         </dl>
     `;
 
@@ -141,6 +142,18 @@ function visualizarMaterial(id) {
 }
 
 corpoTabela.addEventListener("click", evento => {
+    const badge = evento.target.closest(".status-badge");
+    if (badge) {
+        const idBadge = badge.closest("tr")?.dataset.id;
+        const item = materiais.find(x => x.id == idBadge);
+        if (item) {
+            item.bloqueado = !item.bloqueado;
+            if (idEmEdicao == idBadge && campoBloqueado) campoBloqueado.checked = item.bloqueado;
+            renderizarLista();
+        }
+        return;
+    }
+
     const botao = evento.target.closest("button[data-acao]");
     if (!botao) return;
 
@@ -175,6 +188,14 @@ formulario.addEventListener("submit", evento => {
     };
 
     if (!dados.codigo || !dados.nome) return;
+
+    const duplicado = materiais.some(
+        x => x.codigo.toLowerCase() === dados.codigo.toLowerCase() && x.id != idEmEdicao
+    );
+    if (duplicado) {
+        alert("Já existe um registro com esse código.");
+        return;
+    }
 
     if (idEmEdicao) {
         alterarMaterial(idEmEdicao, dados);

@@ -1,3 +1,5 @@
+import { escapeHtml } from "./utils.js";
+
 export class Material {
     static proximoId = 1;
 
@@ -71,8 +73,8 @@ export class Material {
         linha.dataset.id = this.id;
 
         linha.innerHTML = `
-            <td><span class="codigo-cell">${this.codigo}</span></td>
-            <td><span class="mat-nome">${this.nome}</span></td>
+            <td><span class="codigo-cell">${escapeHtml(this.codigo)}</span></td>
+            <td><span class="mat-nome">${escapeHtml(this.nome)}</span></td>
             <td><span class="qtd-cell ${this.quantidadeClasse}">${this.quantidade}</span></td>
             <td>
                 <button class="status-badge ${this.statusClasse}" type="button">

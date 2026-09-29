@@ -1,3 +1,5 @@
+import { escapeHtml } from "./utils.js";
+
 export class Funcionario {
     static proximoId = 1;
 
@@ -54,8 +56,8 @@ export class Funcionario {
         linha.dataset.id = this.id;
 
         linha.innerHTML = `
-            <td><span class="matricula-cell">${this.matricula}</span></td>
-            <td><span class="func-nome">${this.nome}</span></td>
+            <td><span class="matricula-cell">${escapeHtml(this.matricula)}</span></td>
+            <td><span class="func-nome">${escapeHtml(this.nome)}</span></td>
             <td>
                 <button class="status-badge ${this.statusClasse}" type="button">
                     <span class="status-dot"></span>${this.statusTexto}

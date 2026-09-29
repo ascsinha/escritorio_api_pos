@@ -1,3 +1,4 @@
+import { escapeHtml } from "./utils.js";
 import { Funcionario } from "./funcionarios.js";
 import { funcionarios } from "./dados-funcionarios.js";
 
@@ -122,9 +123,9 @@ function visualizarFuncionario(id) {
 
     detalheConteudo.innerHTML = `
         <dl class="detalhe-lista">
-            <dt>Matrícula</dt><dd>${funcionario.matricula}</dd>
-            <dt>Nome</dt><dd>${funcionario.nome}</dd>
-            <dt>Status</dt><dd>${funcionario.statusTexto}</dd>
+            <dt>Matrícula</dt><dd>${escapeHtml(funcionario.matricula)}</dd>
+            <dt>Nome</dt><dd>${escapeHtml(funcionario.nome)}</dd>
+            <dt>Status</dt><dd>${escapeHtml(funcionario.statusTexto)}</dd>
         </dl>
     `;
 
@@ -136,6 +137,18 @@ function visualizarFuncionario(id) {
 }
 
 corpoTabela.addEventListener("click", evento => {
+    const badge = evento.target.closest(".status-badge");
+    if (badge) {
+        const idBadge = badge.closest("tr")?.dataset.id;
+        const item = funcionarios.find(x => x.id == idBadge);
+        if (item) {
+            item.bloqueado = !item.bloqueado;
+            if (idEmEdicao == idBadge && campoBloqueado) campoBloqueado.checked = item.bloqueado;
+            renderizarLista();
+        }
+        return;
+    }
+
     const botao = evento.target.closest("button[data-acao]");
     if (!botao) return;
 
@@ -169,6 +182,14 @@ formulario.addEventListener("submit", evento => {
     };
 
     if (!dados.matricula || !dados.nome) return;
+
+    const duplicado = funcionarios.some(
+        x => x.matricula.toLowerCase() === dados.matricula.toLowerCase() && x.id != idEmEdicao
+    );
+    if (duplicado) {
+        alert("Já existe um registro com esse matrícula.");
+        return;
+    }
 
     if (idEmEdicao) {
         alterarFuncionario(idEmEdicao, dados);
